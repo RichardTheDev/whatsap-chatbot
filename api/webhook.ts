@@ -1,5 +1,5 @@
 import { sendWhatsAppMessage } from "./whatsapp";
-import { anthropicToolUse } from "./anthropic";
+import { anthropicSendMessage } from "./anthropic";
 import { Request, Response } from "express";
 import { handleError } from "./utils";
 
@@ -30,7 +30,7 @@ const extractWebhookData = (body: any): WebhookData | null => {
 // Service functions
 const translateText = async (text: string): Promise<string | null> => {
   try {
-    return await anthropicToolUse(text);
+    return await anthropicSendMessage(text);
   } catch (error) {
     console.error("Translation error:", error);
     return null;
