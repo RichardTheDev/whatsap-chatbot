@@ -12,9 +12,7 @@ export const anthropicToolUse = async (msg: string): Promise<string | null> => {
       messages: [
         {
           role: "user",
-          content:
-            "You are a Hebrew translation assistant. Translate the following text to Hebrew accurately: " +
-            msg,
+          content: `You are a Hebrew translation assistant. Translate the following text to Hebrew accurately: ${msg}`,
         },
       ],
       system:

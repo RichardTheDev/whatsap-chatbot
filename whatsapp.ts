@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PHONE_NUMBER_ID = "373725112493301";
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 const ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
 
 export const sendWhatsAppMessage = async (to: string, message: string) => {
@@ -9,9 +9,10 @@ export const sendWhatsAppMessage = async (to: string, message: string) => {
       `https://graph.facebook.com/v20.0/${PHONE_NUMBER_ID}/messages`,
       {
         messaging_product: "whatsapp",
-        to: to,
+        to,
         type: "text",
         text: { body: message },
+        code: "is_IS",
       },
       {
         headers: {
@@ -21,6 +22,6 @@ export const sendWhatsAppMessage = async (to: string, message: string) => {
       }
     );
   } catch (error) {
-    console.error("Error sending message:", error);
+    console.error("Error sending message:");
   }
 };

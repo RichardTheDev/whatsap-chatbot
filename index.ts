@@ -4,40 +4,12 @@ dotenv.config();
 import express from "express";
 import bodyParser from "body-parser";
 
-import { anthropicToolUse } from "./anthropic";
-import { sendWhatsAppMessage } from "./whatsapp";
+import { handleWebhook } from "./webhook";
 
 const app = express();
 app.use(bodyParser.json());
 
-app.post("/webhook", async (req, res) => {
-  if (req.body.object) {
-    if (
-      req.body.entry &&
-      req.body.entry[0].changes &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0]
-    ) {
-      const from = req.body.entry[0].changes[0].value.messages[0].from;
-      const msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
-
-      try {
-        const translatedText = await anthropicToolUse(msg_body);
-        if (translatedText) {
-          await sendWhatsAppMessage(from, translatedText);
-        } else {
-          throw new Error("No text was received from the API");
-        }
-      } catch (error) {
-        console.error("Error processing message:", error);
-      }
-    }
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(404);
-  }
-});
+app.post("/webhook", handleWebhook);
 
 app.get("/webhook", (req, res) => {
   const verify_token = process.env.VERIFY_TOKEN;
