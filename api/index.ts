@@ -19,11 +19,12 @@ app.get("/webhook", (req, res) => {
 
   if (mode && token) {
     if (mode === "subscribe" && token === verify_token) {
-      res.status(200).send(challenge);
+      return res.status(200).send(challenge);
     } else {
-      res.sendStatus(403);
+      return res.sendStatus(403);
     }
   }
+  return res.sendStatus(400);
 });
 
 const PORT = process.env.PORT || 3000;

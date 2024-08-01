@@ -51,7 +51,7 @@ export const handleWebhook = async (
   res: Response
 ): Promise<void> => {
   if (!isValidWebhook(req.body)) {
-    res.sendStatus(404);
+    res.sendStatus(400);
     return;
   }
 
