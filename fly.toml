@@ -1,15 +1,12 @@
-# fly.toml app configuration file generated for whatsapp-bot-withered-firefly-9390 on 2024-08-01T12:33:11+02:00
+# fly.toml app configuration file generated for whatsapp-bot-updev on 2024-08-01T16:29:15+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'whatsapp-bot-withered-firefly-9390'
-primary_region = 'cdg'
+app = 'whatsapp-bot-updev'
+primary_region = 'iad'
 
 [build]
-
-[env]
-  PORT = '3000'
 
 [http_service]
   internal_port = 3000
